@@ -39,9 +39,9 @@ Util.buildClassificationGrid = async function(data){
       + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
       + 'details"><img src="' + vehicle.inv_thumbnail 
       +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-      +' on CSE Motors" /></a>'
+      +' on CSE Motors"></a>'
       grid += '<div class="namePrice">'
-      grid += '<hr />'
+      grid += '<hr>'
       grid += '<h2>'
       grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
       + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
@@ -57,6 +57,36 @@ Util.buildClassificationGrid = async function(data){
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
   return grid
+}
+
+/* **************************************
+* Build the vehicle detail view HTML
+* ************************************ */
+Util.buildVehiclesDetailsView = function(data){
+  let detailsView //undefined
+  console.log(data)
+  if(data){
+    let miles = data.inv_miles.toLocaleString("en-US");
+    let priceFormatter = Intl.NumberFormat('en-US'); 
+
+    detailsView = '<div id="vehicle-details-container">'
+    detailsView += '<div id="vehicle-img-stats-container">'
+    detailsView += '<img src="'+ data.inv_thumbnail +'">'
+    detailsView += '<ul id="vehicle-details-list">'
+    detailsView += '<li> Model Year: ' + data.inv_model + '</li>'
+    detailsView += '<li> Make: ' + data.inv_make + '</li>'
+    detailsView += '<li> Milage: ' + miles + '</li>'
+    detailsView += '<li> Price: $' + priceFormatter.format(data.inv_price) + '</li>'
+    detailsView += '</ul>'
+    detailsView += '</div>'
+    detailsView += '<section>'
+    detailsView += '<h2>Description</h2>'
+    detailsView += '<p>' + data.inv_description + '</p>'
+    detailsView += '</section>'
+    detailsView += '</div>'
+  }
+
+  return detailsView
 }
 
 /* ****************************************

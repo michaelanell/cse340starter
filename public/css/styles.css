@@ -143,3 +143,22 @@ body {
     display: block;
   }
 }
+
+/* Inventory display grid */
+#inv-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
+  justify-items: center;
+}
+
+#inv-display li {
+  list-style: none;
+  align-self: center;
+}
+
+/* Inventory details display grid */
+#vehicle-img-stats-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}

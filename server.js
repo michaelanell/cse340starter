@@ -11,6 +11,8 @@ const env = require("dotenv").config();
 const app = express();
 const static = require("./routes/static");
 const baseController = require("./controllers/baseController")
+const invController = require("./controllers/invController")
+
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities/")
 
@@ -27,6 +29,8 @@ app.set("layout", "./layouts/layout"); // not at view root
 app.use(static);
 // Index Route
 app.get("/", utilities.handleErrors(baseController.buildHome))
+app.get("/", utilities.handleErrors(invController.buildByClassificationId))
+app.get("/", utilities.handleErrors(invController.buildByInventoryId))
 // Inventory routes
 app.use("/inv", inventoryRoute)
 
