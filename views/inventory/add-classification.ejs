@@ -20,6 +20,7 @@
 <!-- Display body -->
 <form action="/inv/process-add-classification" method="post">
   <label for="classification_name">Name:</label>
-  <input type="text" name="classification_name" required><br>
+  <input type="text" name="classification_name" pattern="([a-zA-Z0-9])" required><br>
+  <p>The new classification name cannot contain any special characters or spaces.</p>
   <input type="submit" value="Submit">
 </form>
