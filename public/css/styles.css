@@ -162,3 +162,21 @@ body {
   display: grid;
   grid-template-columns: 1fr 2fr;
 }
+
+/* Form styling */
+form {
+  background-color: #4c96d7;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: auto;
+  border: 3px solid darkblue;
+}
+
+input {
+  margin-bottom: 10px;
+}
+
+label {
+  color: white;
+}

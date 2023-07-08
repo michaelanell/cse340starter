@@ -1,0 +1,45 @@
+<!-- Heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Flash message -->
+<%- messages() %>
+
+<!-- Display registration errors -->
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<!-- Display body -->
+
+<div>
+    <form action="/inv/process-add-inventory" method="post">
+        <label for="inv_make">Make:</label>
+        <input type="text" name="inv_make" required><br>
+        <label for="inv_model">Model:</label>
+        <input type="text" name="inv_model" required><br>
+        <label for="inv_year">Year:</label>
+        <input type="text" name="inv_year" required><br>
+        <label for="inv_description">Description:</label>
+        <input type="textarea" name="inv_description" required><br>
+        <label for="inv_image">Upload image:</label>
+        <input type="text" name="inv_image" value="/images/vehicles/no-image.png" required><br>
+        <label for="inv_thumbnail">Upload image:</label>
+        <input type="text" name="inv_thumbnail" value="/images/vehicles/no-image-tn.png" required><br>
+        <label for="inv_price">Price:</label>
+        <input type="text" name="inv_price" required><br>
+        <label for="inv_miles">Miles:</label>
+        <input type="text" name="inv_miles" required><br>
+        <label for="inv_color">Color:</label>
+        <input type="text" name="inv_color" required><br>
+        <%- dropdown %>
+        <input type="submit" value="Submit">
+     </form>   
+    </div>

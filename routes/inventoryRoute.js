@@ -18,5 +18,13 @@ router.get("/", utilities.handleErrors(invController.buildManagement));
 // Route to build add classification view
 router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification));
 
+// Route to build add classification view
+router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory));
+
+// Route to process adding a classification to database
 router.post('/process-add-classification', utilities.handleErrors(invController.processAddClassification));
+
+// Route to process adding inventory to database
+router.post('/process-add-inventory', utilities.handleErrors(invController.processAddInventory));
+
 module.exports = router;
