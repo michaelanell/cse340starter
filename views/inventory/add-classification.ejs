@@ -1,1 +1,25 @@
-<h1></h1>
+<!-- Heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Flash message -->
+<%- messages() %>
+
+<!-- Display registration errors -->
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<!-- Display body -->
+<form action="/inv/process-add-classification" method="post">
+  <label for="classification_name">Name:</label>
+  <input type="text" name="classification_name" required><br>
+  <input type="submit" value="Submit">
+</form>

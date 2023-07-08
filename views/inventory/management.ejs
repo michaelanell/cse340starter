@@ -1,2 +1,22 @@
-<%- include('../partials/head')%>
-<h1>Vehicle Management</h1>
+<!-- Heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Flash message -->
+<%- messages() %>
+
+<!-- Display registration errors -->
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<!-- Display body -->
+<div><a href="/inv/add-classification">Add new classification</a></div>
+<div><a href="/inv/add-vehicle">Add new vehicle</a></div>
