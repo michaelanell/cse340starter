@@ -14,6 +14,8 @@ const baseController = require("./controllers/baseController")
 const invController = require("./controllers/invController")
 const session = require("express-session")
 const pool = require('./database/')
+const cookieParser = require("cookie-parser")
+
 
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities/");
@@ -48,6 +50,12 @@ app.use(function(req, res, next){
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded)
 
+// Allow the cookie parser to be implemented throughout the project.
+app.use(cookieParser())
+
+app.use(utilities.checkJWTToken)
+
+
 /* ***********************
  * View Engine and Templates
  *************************/
@@ -77,16 +85,16 @@ app.use(async (req, res, next) => {
 * Express Error Handler
 * Place after all other middleware
 *************************/
-app.use(async (err, req, res, next) => {
-  let nav = await utilities.getNav()
-  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
-  res.render("errors/error", {
-    title: err.status || 'Server Error',
-    message,
-    nav
-  })
-})
+// app.use(async (err, req, res, next) => {
+//   let nav = await utilities.getNav()
+//   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+//   if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
+//   res.render("errors/error", {
+//     title: err.status || 'Server Error',
+//     message,
+//     nav
+//   })
+// })
 
 /* ***********************
  * Local Server Information

@@ -1,0 +1,21 @@
+<!-- Heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Flash message -->
+<%- messages() %>
+
+<!-- Display registration errors -->
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<!-- Body -->
+<p>You're logged in!</p>
