@@ -62,4 +62,17 @@ async function processAddInventory(inv_make, inv_model, inv_year, inv_descriptio
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getInventoryByInventoryId, processAddClassification, processAddInventory};
+/* **********************
+ *   Check for existing classification
+ * ********************* */
+async function checkExistingClassification(classification_name){
+  try {
+    const sql = "SELECT * FROM classification WHERE classification_name = $1"
+    const email = await pool.query(sql, [classification_name])
+    return email.rowCount
+  } catch (error) {
+    return error.message
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getInventoryByInventoryId, processAddClassification, processAddInventory, checkExistingClassification};

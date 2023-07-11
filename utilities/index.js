@@ -96,7 +96,7 @@ Util.buildClassificationDropdown = async function (req, res, next) {
   const data = await invModel.getClassifications()
   console.log(data)
   let dropdownList = '<label for="classification_id">Classification:</label>'
-  dropdownList += '<select name="classification_id">'
+  dropdownList += '<select name="classification_id" required value="<%= locals.classification_id %>">'
   if(data) {
     data.rows.forEach((row) => {
       dropdownList += '<option value="'+ row.classification_id +'">' + row.classification_name+ '</option>'
