@@ -20,7 +20,7 @@
 <!-- Display body -->
 
 <div>
-    <form action="/inv/update" method="post">
+    <form id="updateForm" action="/inv/update" method="post">
         <label for="inv_make">Make:</label>
         <input type="text" name="inv_make" id="inv_make" required value="<%= locals.inv_make %>"><br>
         <label for="inv_model">Model:</label>
@@ -40,9 +40,10 @@
         <label for="inv_color">Color:</label>
         <input type="text" name="inv_color" id="inv_color" required value="<%= locals.inv_color %>"><br>
         <%- classificationSelect %>
-        <input type="submit" name="submit" value="Update Vehicle">
+        <input id="submit" type="submit" name="submit" value="Update Vehicle" disabled>
         <input type="hidden" name="inv_id"
         <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
         <% } %>>
      </form>   
     </div>
+    <script src="../../js/inv-update.js"></script>
