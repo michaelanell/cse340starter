@@ -34,4 +34,7 @@ validate.inventoryRules(),
 validate.checkInventoryData,
 utilities.handleErrors(invController.processAddInventory));
 
+// Route to build inventory by classification view for management view
+router.get("/getInventory/:classification_id", invController.getInventoryJSON);
+
 module.exports = router;
