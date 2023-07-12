@@ -29,7 +29,7 @@ validate.checkClassificationData,
 utilities.handleErrors(invController.processAddClassification));
 
 // Route to process adding inventory to database
-router.post('/process-add-inventory', 
+router.post('/process-add-inventory',
 validate.inventoryRules(),
 validate.checkInventoryData,
 utilities.handleErrors(invController.processAddInventory));
@@ -39,5 +39,11 @@ router.get("/getInventory/:classification_id", utilities.handleErrors(invControl
 
 // Route to build inventory by classification view for management view
 router.get("/edit/:inventory_id", utilities.handleErrors(invController.buildEditIventory));
+
+// Route to process update inventory
+router.post("/update/", 
+//validate.newInventoryRules(),
+validate.checkUpdateData,
+utilities.handleErrors(invController.updateInventory));
 
 module.exports = router;
