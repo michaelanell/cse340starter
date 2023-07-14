@@ -14,8 +14,10 @@ require("dotenv").config()
  *******************************************/
 async function buildLogin(req, res, next) {
     let nav = await utilities.getNav()
+    let loginMessage = await utilities.checkLoginStatus()
     //const loginView = await utilities.buildLoginView()
     res.render("./account/login", {
+      loginMessage,
       title: "Login",
       nav,
       errors: null,
@@ -28,7 +30,9 @@ async function buildLogin(req, res, next) {
  *******************************************/
 async function buildRegistration(req,res,next) {
   let nav = await utilities.getNav()
+  let loginMessage = await utilities.checkLoginStatus()
   res.render("./account/registration", {
+    loginMessage,
     title: "Registration",
     nav,
     errors: null,
@@ -41,6 +45,7 @@ async function buildRegistration(req,res,next) {
 * *************************************** */
 async function registerAccount(req,res) {
   let nav = await utilities.getNav()
+  let loginMessage = await utilities.checkLoginStatus()
   const { account_firstname, account_lastname, account_email, account_password } = req.body
 
   // Hash the password before storing
@@ -51,6 +56,7 @@ async function registerAccount(req,res) {
   } catch (error) {
     req.flash("notice", 'Sorry, there was an error processing the registration.')
     res.status(500).render("account/register", {
+      loginMessage,
       title: "Registration",
       nav,
       errors: null,
@@ -70,6 +76,7 @@ async function registerAccount(req,res) {
       `Congratulations, you\'re registered ${account_firstname}. Please log in.`
     )
     res.status(201).render("account/login", {
+      loginMessage,
       title: "Login",
       nav,
       errors: null,
@@ -77,6 +84,7 @@ async function registerAccount(req,res) {
   } else {
     req.flash("notice", "Sorry, the registration failed.")
     res.status(501).render("account/register", {
+      loginMessage,
       title: "Registration",
       nav,
       errors: null,
@@ -90,11 +98,13 @@ async function registerAccount(req,res) {
  * ************************************ */
 async function accountLogin(req, res) {
   let nav = await utilities.getNav()
+  let loginMessage = await utilities.checkLoginStatus()
   const { account_email, account_password } = req.body
   const accountData = await accountModel.getAccountByEmail(account_email)
   if (!accountData) {
    req.flash("notice", "Please check your credentials and try again.")
    res.status(400).render("account/login", {
+    loginMessage,
     title: "Login",
     nav,
     errors: null,
@@ -120,7 +130,9 @@ async function accountLogin(req, res) {
  *******************************************/
 async function buildAccountManagement(req,res,next) {
   let nav = await utilities.getNav()
+  let loginMessage = await utilities.checkLoginStatus()
   res.render("./account/account-management", {
+    loginMessage,
     title: "Account Management",
     nav,
     errors: null,

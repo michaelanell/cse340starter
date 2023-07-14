@@ -8,10 +8,10 @@ const utilities = require("../utilities/")
 const validate = require('../utilities/inventory-validation')
 
 // Route to build inventory by classification view
-router.get("/type/:classificationId", invController.buildByClassificationId);
+router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
 
 // Route to build inventory info by inventory id
-router.get("/detail/:inventoryId", invController.buildByInventoryId);
+router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByInventoryId));
 
 // Route to build management view
 router.get("/", utilities.handleErrors(invController.buildManagement));
@@ -50,5 +50,8 @@ utilities.handleErrors(invController.updateInventory));
 router.get("/delete/:inventory_id", utilities.handleErrors(invController.buildDeleteInv));
 
 router.post("/delete/", utilities.handleErrors(invController.processDeleteInventory));
+
+// Route to intentional error
+router.get("/error/", utilities.handleErrors(invController.intentionalError));
 
 module.exports = router;

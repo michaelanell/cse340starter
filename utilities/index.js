@@ -28,7 +28,6 @@ Util.getNav = async function (req, res, next) {
 }
 
 
-
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
@@ -73,7 +72,7 @@ Util.buildVehiclesDetailsView = function(data){
 
     detailsView = '<div id="vehicle-details-container">'
     detailsView += '<div id="vehicle-img-stats-container">'
-    detailsView += '<img src="'+ data.inv_thumbnail +'">'
+    detailsView += '<img alt="vehicle image of' + data.inv_model + data.inv_make +'" src="'+ data.inv_thumbnail +'">'
     detailsView += '<ul id="vehicle-details-list">'
     detailsView += '<li> Model Year: ' + data.inv_model + '</li>'
     detailsView += '<li> Make: ' + data.inv_make + '</li>'
@@ -141,6 +140,12 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
+/* ****************************************
+* Middleware to check logged in user
+**************************************** */
+
+
+
  /* ****************************************
  *  Check Login
  * ************************************ */
@@ -153,5 +158,17 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
+ /* ****************************************
+ *  Select login message
+ * ************************************ */
+Util.checkLoginStatus = (req, res, next) => {
+  let message ='here'
+//  if (res.locals.loggedin) {
+//      message = '<a id="account-login" title="Click to view account" href="/account/logout">Logout</a>'
+//   } else {
+//       message = '<a id="account-login" title="Click to log in" href="/account/login">My Account</a>'
+//    }
+  return message
+}
 
 module.exports = Util
