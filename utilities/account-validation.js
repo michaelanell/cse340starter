@@ -154,13 +154,12 @@ validate.accountUpdateRules = () => {
  * Check data and return errors or continue to update account data
  * ***************************** */
 validate.checkAccountUpdateData = async (req, res, next) => {
-  console.log("Got to checkAccountUpdateData in account-validation")
-  const { account_firstname, account_lastname, account_email } = req.body
+  const { account_firstname, account_lastname, account_email, account_id} = req.body
   let errors = []
   errors = validationResult(req)
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav()
-    res.render("account/update-account/", {
+    res.render("/account/account-update", {
       errors,
       title: "Update Account",
       nav,
@@ -175,22 +174,43 @@ validate.checkAccountUpdateData = async (req, res, next) => {
 }
 
 /*  **********************************
- *  Update Account Data Validation Rules
+ *  Update Password Validation Rules
  * ********************************* */
-// validate.registationRules = () => {
-//   return [
-//     // password is required and must be strong password
-//     body("account_password")
-//       .trim()
-//       .isStrongPassword({
-//         minLength: 12,
-//         minLowercase: 1,
-//         minUppercase: 1,
-//         minNumbers: 1,
-//         minSymbols: 1,
-//       })
-//       .withMessage("Password does not meet requirements."),
-//   ]
-// }
+validate.passwordUpdateRules = () => {
+  console.log("Got to passwordUpdateRules in account-validation")
+  return [
+    // password is required and must be strong password
+    body("account_password")
+      .trim()
+      .isStrongPassword({
+        minLength: 12,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+      .withMessage("Password does not meet requirements."),
+  ]
+}
 
+/* ******************************
+ * Check data and return errors or continue to update account data
+ * ***************************** */
+validate.checkPasswordUpdateData = async (req, res, next) => {
+  console.log("Got to checkPasswordUpdateData in account-validation")
+  const {account_id} = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("/account/update-account", {
+      errors,
+      title: "Update Account",
+      nav,
+      account_id
+    })
+    return
+  }
+  next()
+}
 module.exports = validate

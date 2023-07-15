@@ -132,9 +132,6 @@ async function buildAccountManagement(req,res,next) {
  *******************************************/
 async function buildAccountUpdate(req,res,next) {
   const account_id = req.params.accountId
-  console.log("buildAccountUpdate")
-  console.log("account_id")
-  console.log(account_id)
   let nav = await utilities.getNav()
   const itemData = await accountModel.getAccountById(account_id)
   res.render("./account/update-account", {
@@ -173,17 +170,80 @@ async function processAccountUpdate(req,res,next) {
     res.redirect("/account/")
   } else {
     req.flash("notice", "Sorry, the update failed.")
-    res.status(501).render("account/update-account", {
-    title: "Update Account",
+    res.status(501).render("account/account-management", {
+    title: "Account Management",
     nav,
     errors: null,
-    account_id,
-    account_firstname,
-    account_lastname,
-    account_email,
     })
   }
 }
 
 
-module.exports = {buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildAccountUpdate, processAccountUpdate}
+/* ******************************************
+ * Process Password Update (Assignment 5)
+ *******************************************/
+async function processPasswordUpdate(req,res,next) {
+  console.log("controller - processPasswordUpdate")
+
+  let nav = await utilities.getNav()
+  const {
+    account_id,
+    account_password,
+  } = req.body
+
+    // Hash the password before storing
+    let hashedPassword
+    try {
+      // regular password and cost (salt is generated automatically)
+      hashedPassword = await bcrypt.hashSync(account_password, 10)
+    } catch (error) {
+      console.log("Error occurred")
+      req.flash("notice", 'Sorry, there was an error processing the update.')
+      res.status(500).render("account/account-management", {
+        title: "Account Management",
+        nav,
+        errors: null,
+      })
+    }
+
+  const updateResult = await accountModel.updatePassword(
+    account_id,
+    hashedPassword,
+  )
+
+  if (updateResult) {
+    console.log("Success")
+    req.flash("notice", `Your password was successfully updated.`)
+    res.redirect("/account/")
+  } else {
+    console.log("Fail")
+    req.flash("notice", "Sorry, the update failed.")
+    res.status(501).render("account-management", {
+    title: "Account Management",
+    nav,
+    errors: null,
+    })
+  }
+}
+
+/* ******************************************
+ * Deliver Account Logout view (Assignment 5)
+ *******************************************/
+async function buildLogoutView(req,res,next) {
+  let nav = await utilities.getNav()
+  res.render("./account/logout", {
+    title: "Logout",
+    nav,
+    errors: null,
+  })
+}
+
+/* ******************************************
+ * Process Logout (Assignment 5)
+ *******************************************/
+async function processLogout(req,res,next) {
+  return res.redirect("../../")
+}
+
+
+module.exports = {buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildAccountUpdate, processAccountUpdate, processPasswordUpdate,buildLogoutView, processLogout}

@@ -44,14 +44,38 @@ router.post(
 router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManagement))
 
 /* ***********************
- * Route to update account 
+ * Route to update account view 
  *************************/
 router.get("/update-account/:accountId", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountUpdate))
 
+/* ***********************
+ * Route to update account data
+ *************************/
 router.post(
   "/update/",
   validate.accountUpdateRules(),
   validate.checkAccountUpdateData,
   utilities.handleErrors(accountController.processAccountUpdate)
 )
+
+/* ***********************
+ * Route to update account password
+ *************************/
+router.post(
+  "/update-password/",
+   validate.passwordUpdateRules(),
+   validate.checkPasswordUpdateData,
+  utilities.handleErrors(accountController.processPasswordUpdate)
+ )
+
+/* ***********************
+ * Route to logout
+ *************************/
+router.get("/logout", utilities.checkLogin, utilities.handleErrors(accountController.buildLogoutView))
+
+/* ***********************
+ * Process logout
+ *************************/
+router.post("/logout", utilities.logout, utilities.handleErrors(accountController.processLogout))
+
 module.exports = router;
