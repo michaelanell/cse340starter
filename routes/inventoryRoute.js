@@ -14,18 +14,19 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByInventoryId));
 
 // Route to build management view
-router.get("/", utilities.handleErrors(invController.buildManagement));
+router.get("/", utilities.checkAccountType, utilities.handleErrors(invController.buildManagement));
 
 // Route to build add classification view
-router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification));
+router.get("/add-classification", utilities.checkAccountType, utilities.handleErrors(invController.buildAddClassification));
 
 // Route to build add classification view
-router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory));
+router.get("/add-inventory", utilities.checkAccountType, utilities.handleErrors(invController.buildAddInventory));
 
 // Route to process adding a classification to database
 router.post('/process-add-classification', 
 validate.classificationRules(),
 validate.checkClassificationData,
+utilities.checkAccountType,
 utilities.handleErrors(invController.processAddClassification));
 
 // Route to process adding inventory to database
@@ -38,7 +39,7 @@ utilities.handleErrors(invController.processAddInventory));
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
 
 // Route to build inventory by classification view for management view
-router.get("/edit/:inventory_id", utilities.handleErrors(invController.buildEditIventory));
+router.get("/edit/:inventory_id", utilities.checkAccountType, utilities.handleErrors(invController.buildEditIventory));
 
 // Route to process update inventory
 router.post("/update/", 
@@ -47,8 +48,9 @@ validate.checkUpdateData,
 utilities.handleErrors(invController.updateInventory));
 
 // Route to delete inventory
-router.get("/delete/:inventory_id", utilities.handleErrors(invController.buildDeleteInv));
+router.get("/delete/:inventory_id", utilities.checkAccountType, utilities.handleErrors(invController.buildDeleteInv));
 
+// Route to process delete inventory
 router.post("/delete/", utilities.handleErrors(invController.processDeleteInventory));
 
 // Route to intentional error

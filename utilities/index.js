@@ -141,9 +141,17 @@ Util.checkJWTToken = (req, res, next) => {
  }
 
 /* ****************************************
-* Middleware to check logged in user
+* Middleware to check user account type
 **************************************** */
-
+Util.checkAccountType = (req, res, next) => {
+  if (res.locals.loggedin && (res.locals.accountData.account_type == "Employee"|| res.locals.accountData.account_type == "Admin")) { // check if logged in 
+    next() //if logged in, allow user to continue
+  } else {
+    // ask user to log in
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+ }
 
 
  /* ****************************************
@@ -157,18 +165,5 @@ Util.checkJWTToken = (req, res, next) => {
     return res.redirect("/account/login")
   }
  }
-
- /* ****************************************
- *  Select login message
- * ************************************ */
-Util.checkLoginStatus = (req, res, next) => {
-  let message ='here'
-//  if (res.locals.loggedin) {
-//      message = '<a id="account-login" title="Click to view account" href="/account/logout">Logout</a>'
-//   } else {
-//       message = '<a id="account-login" title="Click to log in" href="/account/login">My Account</a>'
-//    }
-  return message
-}
 
 module.exports = Util

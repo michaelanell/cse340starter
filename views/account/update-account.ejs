@@ -1,0 +1,46 @@
+<!-- Heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Flash message -->
+<%- messages() %>
+
+<!-- Display registration errors -->
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<div>
+    <form id="updateForm" action="/account/update" method="post">
+        <label for="account_firstname">Firstname:</label>
+        <input type="text" name="account_firstname" id="account_firstname" required value="<%= locals.account_firstname %>"><br>
+        <label for="account_lastname">Lastname:</label>
+        <input type="account_lastname" name="account_lastname" id="account_lastname" required value="<%= locals.account_lastname %>"><br>
+        <label for="account_email">Email:</label>
+        <input type="text" name="account_email" id="account_email" required value="<%= locals.account_email %>"><br>
+
+        <input id="submit" type="submit" name="submit" value="Update Account" disabled>
+        <input type="hidden" name="account_id"
+        <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+        <% } %>>
+     </form>   
+    </div>
+
+    <form id="updateForm2" action="/account/update-password" method="post">
+      <label for="account_password">New password:</label>
+      <input type="text" name="inv_make" id="inv_make"><br>
+
+      <input id="submit" type="submit" name="submit" value="Update Password" disabled>
+      <input type="hidden" name="account_id"
+      <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+      <% } %>>
+   </form>   
+
+    <script src="../../js/update.js"></script>

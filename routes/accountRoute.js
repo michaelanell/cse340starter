@@ -5,7 +5,7 @@ const express = require("express")
 const router = new express.Router()
 const accountController = require("../controllers/accountController")
 const utilities = require("../utilities/")
-const regValidate = require('../utilities/account-validation')
+const validate = require('../utilities/account-validation')
 
 
 /* ***********************
@@ -23,19 +23,35 @@ router.get("/registration", utilities.handleErrors(accountController.buildRegist
  *************************/
 router.post(
     "/register",
-    regValidate.registationRules(),
-    regValidate.checkRegData,
+    validate.registationRules(),
+    validate.checkRegData,
     utilities.handleErrors(accountController.registerAccount)
   )
 
-// Process the login attempt
+/* ***********************
+ * Route to process login attempt
+ *************************/
 router.post(
   "/login",
-  regValidate.loginRules(),
-  regValidate.checkLoginData,
+  validate.loginRules(),
+  validate.checkLoginData,
   utilities.handleErrors(accountController.accountLogin)
 )
 
+/* ***********************
+ * Route to account management page
+ *************************/
 router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManagement))
 
+/* ***********************
+ * Route to update account 
+ *************************/
+router.get("/update-account/:accountId", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountUpdate))
+
+router.post(
+  "/update/",
+  validate.accountUpdateRules(),
+  validate.checkAccountUpdateData,
+  utilities.handleErrors(accountController.processAccountUpdate)
+)
 module.exports = router;

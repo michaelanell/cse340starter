@@ -21,8 +21,6 @@
 
 <div>
     <form id="updateForm" action="/inv/update" method="post">
-        <label for="inv_make">Make:</label>
-        <input type="text" name="inv_make" id="inv_make" required value="<%= locals.inv_make %>"><br>
         <label for="inv_model">Model:</label>
         <input type="text" name="inv_model" id="inv_model" required value="<%= locals.inv_model %>"><br>
         <label for="inv_year">Year:</label>
@@ -46,4 +44,4 @@
         <% } %>>
      </form>   
     </div>
-    <script src="../../js/inv-update.js"></script>
+    <script src="../../js/update.js"></script>
