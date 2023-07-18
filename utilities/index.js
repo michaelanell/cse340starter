@@ -122,7 +122,7 @@ Util.buildInventoryDropdown = async function (req, res, next) {
   dropdownList += '<option value="" selected hidden>Choose a vehicle</option>'
   if(data) {
     data.rows.forEach((row) => {
-      dropdownList += '<option value="'+ row.inv_id +'">' + row.inv_model+ '</option>'
+      dropdownList += '<option value="'+ row.inv_id +'">'+ row.inv_make + " " + row.inv_model+ '</option>'
     })
   }
   dropdownList += '</select><br>'
