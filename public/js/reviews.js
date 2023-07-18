@@ -22,18 +22,14 @@ vehicleList.addEventListener("change", function () {
 
 // Build inventory items into HTML table components and inject into DOM 
 function buildReviewList(data) { 
-    console.log(data);
     let reviewsDisplay = document.getElementById("reviewsDisplay"); 
-    console.log(reviewsDisplay);
     let dataDisplay = ''
     data.forEach(function (element) { 
     // Iterate over all reviews in the array and put each in a row 
     dataDisplay += `<p>Name: ${element.review_firstname} ${element.review_lastname}</p>`;
-    console.log(dataDisplay)
-     console.log(element.review_firstname + ", " + element.review_lastname); 
+     dataDisplay += `<p>Review rating: ${element.review_rating}</p>`;
      dataDisplay += `<p>${element.review_comment}</p>`;
      console.log('data display: ')
-     console.log(dataDisplay)
     })
     // Display the contents in the Inventory Management view 
     reviewsDisplay.innerHTML = dataDisplay; 
