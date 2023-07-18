@@ -19,6 +19,7 @@ router.get("/getReviews/:inv_id", utilities.handleErrors(reviewController.getRev
 router.get("/add-review/", utilities.handleErrors(reviewController.buildAddReviewsView));
 
 // Route to process review
-router.post("/add-review/", utilities.handleErrors(reviewController.processAddReviews));
+router.post("/add-review/", validate.reviewRules(),
+validate.checkReviewData, utilities.handleErrors(reviewController.processAddReviews));
 
 module.exports = router;

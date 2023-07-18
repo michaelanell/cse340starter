@@ -25,7 +25,8 @@
     <input type="text" name="review_lastname" id="review_lastname" required value="<%= locals.review_lastname %>"><br>
     <%- inventorySelect %>
     <label for="review_rating">Rating:</label>
-    <input type="text" name="review_rating" id="review_rating" required placeholder="Out of 5" value="<%= locals.review_rating %>"><br>
+    <input type="text" name="review_rating" id="review_rating" required pattern="[1-5]{1}" placeholder="Out of 5" value="<%= locals.review_rating %>"><br>
+    <p>Please add a rating between 1 and 5.</p>
     <label for="review_comments">Review:</label><br>
     <textarea name="review_comments" id="review_comments" required><%= locals.review_comments %></textarea><br>
     <input type="submit" value="Submit">
