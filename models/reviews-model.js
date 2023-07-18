@@ -22,14 +22,14 @@ async function getReviewsByInvId(inv_id) {
 async function processAddReview(review_firstname, 
   review_lastname, 
   review_rating, 
-  review_comments, 
+  review_comment, 
   inv_id ){
   try {
-    const sql = "INSERT INTO reviews (review_firstname, review_lastname, review_rating, review_comments, inv_id ) VALUES ($1, $2, $3, $4, $5) RETURNING *"
+    const sql = "INSERT INTO reviews (review_firstname, review_lastname, review_rating, review_comment, inv_id ) VALUES ($1, $2, $3, $4, $5) RETURNING *"
     return await pool.query(sql, [review_firstname, 
       review_lastname, 
       review_rating, 
-      review_comments,
+      review_comment,
       inv_id ])
   } catch (error) {
     return error.message
