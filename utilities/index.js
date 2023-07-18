@@ -110,6 +110,26 @@ Util.buildClassificationDropdown = async function (req, res, next) {
   return dropdownList
 }
 
+/* **************************************
+* Build the inventory dropdown list 
+* for the review 
+* ************************************ */
+Util.buildInventoryDropdown = async function (req, res, next) {
+  const data = await invModel.getInventory()
+  //console.log(data)
+  let dropdownList = '<label for="inv_id">Vehicle:</label>'
+  dropdownList += '<select name="inv_id" id="inv_id" required>'
+  dropdownList += '<option value="" selected hidden>Choose a vehicle</option>'
+  if(data) {
+    data.rows.forEach((row) => {
+      dropdownList += '<option value="'+ row.inv_id +'">' + row.inv_model+ '</option>'
+    })
+  }
+  dropdownList += '</select><br>'
+  //console.log(dropdownList)
+  return dropdownList
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

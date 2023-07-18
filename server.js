@@ -15,11 +15,10 @@ const invController = require("./controllers/invController")
 const session = require("express-session")
 const pool = require('./database/')
 const cookieParser = require("cookie-parser")
-
-
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities/");
 const account = require("./routes/accountRoute");
+const reviewsRoute = require("./routes/reviewsRoute");
 
 // enable abiliity to collect the values from incoming request bodies
 const bodyParser = require("body-parser")
@@ -75,6 +74,9 @@ app.use("/inv", inventoryRoute)
 
 // Account routes
 app.use("/account", account)
+
+// Review routes
+app.use("/reviews", reviewsRoute)
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
