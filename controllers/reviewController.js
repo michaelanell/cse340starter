@@ -37,4 +37,62 @@ reviewsCont.getReviewsJSON = async (req, res, next) => {
   }
 }
 
+/* ***************************
+ *  Build add reviews
+ * ************************** */
+reviewsCont.buildAddReviewsView = async (req, res, next) => {
+  let nav = await utilities.getNav()
+    const inventorySelect = await utilities.buildInventoryDropdown()
+    res.render("./reviews/add-review", {
+      title: "Add Review",
+      nav,
+      inventorySelect,
+      errors: null,
+    })
+}
+
+/* ***************************
+ *  Process add reviews
+ * ************************** */
+reviewsCont.processAddReviews = async (req, res, next) => {
+  console.log("processAddReviews")
+  let nav = await utilities.getNav()
+  const { review_firstname, 
+    review_lastname, 
+    review_rating, 
+    review_comments, 
+    inv_id 
+  } = req.body
+
+  const addResult = await reviewsModel.processAddReview(
+    review_firstname, 
+    review_lastname, 
+    review_rating, 
+    review_comments, 
+    inv_id
+  )
+
+  if (addResult) {
+    const inventorySelect = await utilities.buildInventoryDropdown()
+    req.flash(
+      "notice",
+      'Your review has been added.'
+    )
+      res.status(201).render("./reviews/reviews", {
+        title: "Review Added",
+        nav,
+        errors: null,
+        inventorySelect: inventorySelect,
+      }
+      )
+  } else {
+    req.flash("notice", "Adding the review failed.")
+    res.status(501).render("./reviews/add-review", {
+      title: "Add Review",
+      nav,
+      errors: null,
+    })
+  }
+}
+
 module.exports = reviewsCont

@@ -1,0 +1,32 @@
+<!-- Heading -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Flash message -->
+<%- messages() %>
+
+<!-- Display registration errors -->
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<!-- Display body -->
+<form action="/reviews/add-review" method="post">
+    <label for="review_firstname">First Name:</label>
+    <input type="text" name="review_firstname" id="review_firstname" required value="<%= locals.review_firstname %>"><br>
+    <label for="review_lastname">Last Name:</label>
+    <input type="text" name="review_lastname" id="review_lastname" required value="<%= locals.review_lastname %>"><br>
+    <%- inventorySelect %>
+    <label for="review_rating">Rating:</label>
+    <input type="text" name="review_rating" id="review_rating" required placeholder="Out of 5" value="<%= locals.review_rating %>"><br>
+    <label for="review_comments">Review:</label><br>
+    <textarea name="review_comments" id="review_comments" required><%= locals.review_comments %></textarea><br>
+    <input type="submit" value="Submit">
+  </form>

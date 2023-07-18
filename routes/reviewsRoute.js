@@ -15,4 +15,10 @@ router.get("/", utilities.handleErrors(reviewController.buildReviews));
 // Route to get reviews by inv_id for reviews view
 router.get("/getReviews/:inv_id", utilities.handleErrors(reviewController.getReviewsJSON));
 
+// Route to get add review view
+router.get("/add-review/", utilities.handleErrors(reviewController.buildAddReviewsView));
+
+// Route to process review
+router.post("/add-review/", utilities.handleErrors(reviewController.processAddReviews));
+
 module.exports = router;
